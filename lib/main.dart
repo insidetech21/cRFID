@@ -100,7 +100,7 @@ class HomePage extends StatelessWidget {
                             padding: const EdgeInsets.all(12.0),
                             child: Column(
                               children: [
-                                Image.asset("assets/internal.png", width: 90.0),
+                                Image.asset("assets/outbound.png", width: 90.0),
                                 const SizedBox(height: 10.0),
                                 const Text("OUTBOUND", style: TextStyle(
                                   color: Colors.grey,
@@ -133,7 +133,7 @@ class HomePage extends StatelessWidget {
                             padding: const EdgeInsets.all(12.0),
                             child: Column(
                               children: [
-                                Image.asset("assets/outbound.png", width: 90.0),
+                                Image.asset("assets/internal.png", width: 90.0),
                                 const SizedBox(height: 10.0),
                                 const Text("INTERNAL", style: TextStyle(
                                   color: Colors.grey,

@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart' show AlertDialog, BuildContext, Column, CrossAxisAlignment, InputDecoration, Navigator, OutlineInputBorder, SingleChildScrollView, SizedBox, Text, TextButton, TextEditingController, TextFormField, Widget, showDialog;
+import 'package:flutter/material.dart';
 
 class ConfirmationPage {
   showAlertDialog(BuildContext context) {
-    TextEditingController poNumberController = TextEditingController();
     TextEditingController deliveryNoteController = TextEditingController();
     TextEditingController billOfLoadingController = TextEditingController();
     TextEditingController giSlipNoController = TextEditingController();
@@ -11,18 +10,33 @@ class ConfirmationPage {
     TextEditingController commentsController = TextEditingController();
 
     AlertDialog alert = AlertDialog(
-      title: const Text("AlertDialog"),
+      title: const Center(child: Text("Confirmation")),
       content: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            TextFormField(
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("PO Number :"),
+                Text(
+                  "46000001919",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            /*TextFormField(
               controller: poNumberController,
+              autofocus: true,
+              readOnly: true,
+              initialValue: "460007770",
               decoration: const InputDecoration(
                 labelText: 'PO Number',
                 border: OutlineInputBorder(),
               ),
-            ),
+            ),*/
             const SizedBox(height: 8.0),
             TextFormField(
               controller: deliveryNoteController,
@@ -86,7 +100,7 @@ class ConfirmationPage {
           child: const Text("Continue"),
           onPressed: () {
             // Access form data
-           /* String poNumber = poNumberController.text;
+            /* String poNumber = poNumberController.text;
             String deliveryNote = deliveryNoteController.text;
             String billOfLoading = billOfLoadingController.text;
             String giSlipNo = giSlipNoController.text;
