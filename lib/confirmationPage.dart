@@ -1,154 +1,113 @@
-import 'dart:math';
+import 'package:flutter/material.dart' show AlertDialog, BuildContext, Column, CrossAxisAlignment, InputDecoration, Navigator, OutlineInputBorder, SingleChildScrollView, SizedBox, Text, TextButton, TextEditingController, TextFormField, Widget, showDialog;
 
-import 'package:flutter/material.dart';
+class ConfirmationPage {
+  showAlertDialog(BuildContext context) {
+    TextEditingController poNumberController = TextEditingController();
+    TextEditingController deliveryNoteController = TextEditingController();
+    TextEditingController billOfLoadingController = TextEditingController();
+    TextEditingController giSlipNoController = TextEditingController();
+    TextEditingController headerTextController = TextEditingController();
+    TextEditingController transporterNameController = TextEditingController();
+    TextEditingController commentsController = TextEditingController();
 
-class confirmationPage extends StatelessWidget {
-  const confirmationPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Confirmation Page'),
-      ),
-      body: const Form(
+    AlertDialog alert = AlertDialog(
+      title: const Text("AlertDialog"),
+      content: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("PO Number :"),
-                  SizedBox(
-                    width: 150,
-                    child: TextField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: '46000001919',
-                      ),
-                    ),
-                  ),
-                ],
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            TextFormField(
+              controller: poNumberController,
+              decoration: const InputDecoration(
+                labelText: 'PO Number',
+                border: OutlineInputBorder(),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Delivery Note :"),
-                  SizedBox(
-                    width: 150,
-                    child: TextField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: '',
-                      ),
-                    ),
-                  ),
-                ],
+            const SizedBox(height: 8.0),
+            TextFormField(
+              controller: deliveryNoteController,
+              decoration: const InputDecoration(
+                labelText: 'Delivery Note',
+                border: OutlineInputBorder(),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Bill Of Loading :"),
-                  SizedBox(
-                    width: 150,
-                    child: TextField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: '',
-                      ),
-                    ),
-                  ),
-                ],
+            const SizedBox(height: 8.0),
+            TextFormField(
+              controller: billOfLoadingController,
+              decoration: const InputDecoration(
+                labelText: 'Bill Of Loading',
+                border: OutlineInputBorder(),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("GR/GI Slip No. :"),
-                  SizedBox(
-                    width: 150,
-                    child: TextField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: '',
-                      ),
-                    ),
-                  ),
-                ],
+            const SizedBox(height: 8.0),
+            TextFormField(
+              controller: giSlipNoController,
+              decoration: const InputDecoration(
+                labelText: 'GR/GI Slip No.',
+                border: OutlineInputBorder(),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Header Text:"),
-                  SizedBox(
-                    width: 150,
-                    child: TextField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: '',
-                      ),
-                    ),
-                  ),
-                ],
+            const SizedBox(height: 8.0),
+            TextFormField(
+              controller: headerTextController,
+              decoration: const InputDecoration(
+                labelText: 'Header Text',
+                border: OutlineInputBorder(),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Transpoter Name :"),
-                  SizedBox(
-                    width: 150,
-                    child: TextField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: '',
-                      ),
-                    ),
-                  ),
-                ],
+            const SizedBox(height: 8.0),
+            TextFormField(
+              controller: transporterNameController,
+              decoration: const InputDecoration(
+                labelText: 'Transporter Name',
+                border: OutlineInputBorder(),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 340,
-                    child: TextField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Comments...',
-                      ),
-                    ),
-                  ),
-                ],
+            const SizedBox(height: 8.0),
+            TextFormField(
+              controller: commentsController,
+              maxLines: 3,
+              decoration: const InputDecoration(
+                labelText: 'Comments',
+                border: OutlineInputBorder(),
               ),
             ),
           ],
         ),
       ),
+      actions: <Widget>[
+        TextButton(
+          child: const Text("Cancel"),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        TextButton(
+          child: const Text("Continue"),
+          onPressed: () {
+            // Access form data
+           /* String poNumber = poNumberController.text;
+            String deliveryNote = deliveryNoteController.text;
+            String billOfLoading = billOfLoadingController.text;
+            String giSlipNo = giSlipNoController.text;
+            String headerText = headerTextController.text;
+            String transporterName = transporterNameController.text;
+            String comments = commentsController.text;*/
+
+            // Process the form data here
+
+            // Close the dialog
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

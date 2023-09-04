@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'details_Page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
@@ -48,7 +50,7 @@ class InboundPage extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const detailsPage()),
+                  MaterialPageRoute(builder: (context) => const DetailsPage()),
                 );
               },
               child: Card(

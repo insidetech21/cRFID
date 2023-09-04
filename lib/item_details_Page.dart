@@ -2,34 +2,35 @@ import 'package:flutter/material.dart';
 
 import 'confirmationPage.dart';
 
-class FirstTab1 extends StatelessWidget {
-  const FirstTab1({super.key});
+class ItemDetailsPage extends StatelessWidget {
+  const ItemDetailsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                const Expanded(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Search...',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    // Handle search button press
-                    // You can implement search functionality here
-                  },
-                  child: const Icon(Icons.search),
-                ),
-              ],
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              "PO: 4600001921",
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.grey,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              "Vendor Name: Bharat Electronics",
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.grey,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           Expanded(

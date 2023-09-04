@@ -1,11 +1,11 @@
+import 'package:crfid/item_details_Page.dart';
 import 'package:flutter/material.dart';
 
 import 'confirmationPage.dart';
 import 'details_Page1.dart';
-import 'inbound_Page.dart';
 
-class detailsPage extends StatelessWidget {
-  const detailsPage({super.key});
+class DetailsPage extends StatelessWidget {
+  const DetailsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +42,7 @@ class detailsPage extends StatelessWidget {
             //First Tab
             const FirstTab(),
             const FirstTab1(),
+            const ItemDetailsPage(),
             Container(
               color: Colors.red,
               child: const Icon(Icons.person),
@@ -110,12 +111,8 @@ class FirstTab extends StatelessWidget {
                           subtitle: const Text("Zebra Service Ltd"),
                           trailing: const Text("01 Aug 2024"),
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const confirmationPage()),
-                            );
+                            ConfirmationPage cp = ConfirmationPage();
+                            cp.showAlertDialog(context);
                           },
                         ),
                       ),
@@ -126,12 +123,8 @@ class FirstTab extends StatelessWidget {
                           subtitle: const Text("ABC Ltd"),
                           trailing: const Text("15 Sep 2022"),
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const confirmationPage()),
-                            );
+                            ConfirmationPage cp = ConfirmationPage();
+                            cp.showAlertDialog(context);
                           },
                         ),
                       ),
@@ -144,12 +137,8 @@ class FirstTab extends StatelessWidget {
                           trailing: const Text("20 Sep 2023"),
 
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const confirmationPage()),
-                            );
+                            ConfirmationPage cp = ConfirmationPage();
+                            cp.showAlertDialog(context);
                           },
                         ),
                       ),
@@ -160,12 +149,8 @@ class FirstTab extends StatelessWidget {
                           subtitle: const Text("Crave Infotech Pvt Ltd"),
                           trailing: const Text("01 Sep 2023"),
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const confirmationPage()),
-                            );
+                            ConfirmationPage cp = ConfirmationPage();
+                            cp.showAlertDialog(context);
                           },
                         ),
                       ),
