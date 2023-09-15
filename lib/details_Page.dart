@@ -107,7 +107,7 @@ class FirstTab extends StatelessWidget {
                       child: ListTile(
                         title: Text(poset.ebeln),
                         subtitle: Text(poset.name1),
-                        trailing: Text(poset.aedat),
+                        trailing: Text(convertDateFromMilliseconds(poset.aedat)),
                         onTap: () {
                           ConfirmationPage cp = ConfirmationPage();
                           cp.showAlertDialog(context);
@@ -123,5 +123,18 @@ class FirstTab extends StatelessWidget {
       ],
     );
   }
+
+  String convertDateFromMilliseconds(String dateStr) {
+  // Extract milliseconds from the string
+  int milliseconds = int.parse(dateStr.replaceAll(RegExp(r'/Date\(|\)/'), ''));
+  
+  // Convert milliseconds to DateTime
+  DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(milliseconds);
+  
+  // Format the DateTime as dd/mm/yyyy
+  String formattedDate = "${dateTime.day.toString().padLeft(2, '0')}/${dateTime.month.toString().padLeft(2, '0')}/${dateTime.year}";
+  
+  return formattedDate;
+}
 }
 
