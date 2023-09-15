@@ -1,4 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Add the following line to request internet permission -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:label="cRFID"
         android:name="${applicationName}"
