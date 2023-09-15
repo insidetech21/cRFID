@@ -125,15 +125,23 @@ class FirstTab extends StatelessWidget {
   }
 
   String convertDateFromMilliseconds(String dateStr) {
+  // Define an array of month names
+  List<String> monthNames = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+  ];
+
   // Extract milliseconds from the string
   int milliseconds = int.parse(dateStr.replaceAll(RegExp(r'/Date\(|\)/'), ''));
-  
+
   // Convert milliseconds to DateTime
   DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(milliseconds);
-  
-  // Format the DateTime as dd/mm/yyyy
-  String formattedDate = "${dateTime.day.toString().padLeft(2, '0')}/${dateTime.month.toString().padLeft(2, '0')}/${dateTime.year}";
-  
+
+  // Get the month name from the array
+  String monthName = monthNames[dateTime.month - 1]; // Subtract 1 because months are 1-based
+
+  // Format the DateTime as dd/Mon/yyyy
+  String formattedDate = "${dateTime.day.toString().padLeft(2, '0')} $monthName ${dateTime.year}";
+
   return formattedDate;
 }
 }
