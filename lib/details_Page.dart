@@ -53,8 +53,16 @@ class DetailsPage extends StatelessWidget {
   }
 }
 
-class FirstTab extends StatelessWidget {
+class FirstTab extends StatefulWidget {
   const FirstTab({Key? key}) : super(key: key);
+
+  @override
+  State<FirstTab> createState() => _FirstTabState();
+}
+
+class _FirstTabState extends State<FirstTab> {
+  DateTime? selectedDate;
+  String? selectedDateInFormat; // Add this variable to store the selected date
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +80,13 @@ class FirstTab extends StatelessWidget {
                     border: OutlineInputBorder(),
                   ),
                 ),
+              ),
+              IconButton(
+                icon: Icon(Icons.calendar_today),
+                onPressed: () {
+                  _selectDate(
+                      context); // Open the date picker when the icon is pressed
+                },
               ),
               TextButton(
                 onPressed: () {
@@ -98,7 +113,15 @@ class FirstTab extends StatelessWidget {
                 return const Center(child: Text('No data available.'));
               } else {
                 // Display the data in a ListView
-                final posets = snapshot.data!;
+                // final posets = snapshot.data!;
+
+                final posets = snapshot.data!.where((poset) {
+                  final posetDate = poset.aedat;
+                  return 
+                  selectedDate == null || 
+                  posetDate == selectedDateInFormat;
+                }).toList();
+
                 return ListView.builder(
                   itemCount: posets.length,
                   itemBuilder: (context, index) {
@@ -107,7 +130,8 @@ class FirstTab extends StatelessWidget {
                       child: ListTile(
                         title: Text(poset.ebeln),
                         subtitle: Text(poset.name1),
-                        trailing: Text(convertDateFromMilliseconds(poset.aedat)),
+                        trailing:
+                            Text(convertDateFromMilliseconds(poset.aedat)),
                         onTap: () {
                           ConfirmationPage cp = ConfirmationPage();
                           cp.showAlertDialog(context);
@@ -125,24 +149,55 @@ class FirstTab extends StatelessWidget {
   }
 
   String convertDateFromMilliseconds(String dateStr) {
-  // Define an array of month names
-  List<String> monthNames = [
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-  ];
+    // Define an array of month names
+    List<String> monthNames = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ];
 
-  // Extract milliseconds from the string
-  int milliseconds = int.parse(dateStr.replaceAll(RegExp(r'/Date\(|\)/'), ''));
+    // Extract milliseconds from the string
+    int milliseconds =
+        int.parse(dateStr.replaceAll(RegExp(r'/Date\(|\)/'), ''));
 
-  // Convert milliseconds to DateTime
-  DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(milliseconds);
+    // Convert milliseconds to DateTime
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(milliseconds);
 
-  // Get the month name from the array
-  String monthName = monthNames[dateTime.month - 1]; // Subtract 1 because months are 1-based
+    // Get the month name from the array
+    String monthName =
+        monthNames[dateTime.month - 1]; // Subtract 1 because months are 1-based
 
-  // Format the DateTime as dd/Mon/yyyy
-  String formattedDate = "${dateTime.day.toString().padLeft(2, '0')} $monthName ${dateTime.year}";
+    // Format the DateTime as dd/Mon/yyyy
+    String formattedDate =
+        "${dateTime.day.toString().padLeft(2, '0')} $monthName ${dateTime.year}";
 
-  return formattedDate;
+    return formattedDate;
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate ?? DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+    if (picked != null && picked != selectedDate) {
+      final millisecondsSinceEpoch = picked.millisecondsSinceEpoch;
+      selectedDateInFormat =
+          '/Date($millisecondsSinceEpoch)/'; // Format the date
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }
 }
-}
-
