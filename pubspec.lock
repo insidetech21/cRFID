@@ -70,6 +70,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
+  flutter_riverpod:
+    dependency: "direct main"
+    description:
+      name: flutter_riverpod
+      sha256: "1bd39b04f1bcd217a969589777ca6bd642d116e3e5de65c3e6a8e8bdd8b178ec"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -99,6 +107,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  logger:
+    dependency: "direct main"
+    description:
+      name: logger
+      sha256: ba3bc83117b2b49bdd723c0ea7848e8285a0fbc597ba09203b20d329d020c24a
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.2"
   matcher:
     dependency: transitive
     description:
@@ -132,7 +148,7 @@ packages:
     source: hosted
     version: "1.8.3"
   riverpod:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: riverpod
       sha256: a600120d6f213a9922860eea1abc32597436edd5b2c4e73b91410f8c2af67d22
@@ -226,3 +242,4 @@ packages:
     version: "0.1.4-beta"
 sdks:
   dart: ">=3.1.0 <4.0.0"
+  flutter: ">=3.0.0"

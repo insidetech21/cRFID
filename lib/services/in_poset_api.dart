@@ -41,24 +41,25 @@ class InPOSet {
 
         //final results = json['results'] as List<dynamic>;
         final List results = jsonDecode(response.body)['d']['results'];
-        final posets = results.map((e) {
-          final posets = Poset(
-            ebeln: e['Ebeln'],
-            bsart: e['Bsart'],
-            bstyp: e['Bstyp'],
-            name1: e['Name1'],
-            lifnr: e['Lifnr'],
-            aedat: e['Aedat'],
-            werks: e['Werks'],
-            mblnr: e['Mblnr'],
-            billOfLadding: e['bill_of_ladding'],
-            grGiSlipNo: e['gr_gi_slip_no'],
-            headerTxt: e['header_txt'],
-          );
-          return posets;
-        }).toList();
+        // final posets = results.map((e) {
+        //   final posets = Poset(
+        //     ebeln: e['Ebeln'],
+        //     bsart: e['Bsart'],
+        //     bstyp: e['Bstyp'],
+        //     name1: e['Name1'],
+        //     lifnr: e['Lifnr'],
+        //     aedat: e['Aedat'],
+        //     werks: e['Werks'],
+        //     mblnr: e['Mblnr'],
+        //     billOfLadding: e['bill_of_ladding'],
+        //     grGiSlipNo: e['gr_gi_slip_no'],
+        //     headerTxt: e['header_txt'],
+        //   );
+        //   return posets;
+        // }).toList();
 
-        return posets; // Add this return statement
+        // return posets;
+        return results.map(((e) => Poset.fromJson(e))).toList();
       } else {
         // print("Error response: ${response.statusCode}");
         // print("Error body: ${response.body}");
