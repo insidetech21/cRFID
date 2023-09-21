@@ -158,6 +158,7 @@ class _FirstTabState extends State<FirstTab> {
                 }
                 logger.d('Selected date in format:  $selectedDateInFormat');
 
+              posets.sort((a, b) => a.ebeln.toString().compareTo(b.ebeln.toString()));
 
                 
 
