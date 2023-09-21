@@ -51,7 +51,7 @@ class ItemDetailsPage extends StatelessWidget {
                     trailing: const Text("01 Oct 2025"),
                     onTap: () {
                       ConfirmationPage cp = ConfirmationPage();
-                      cp.showAlertDialog(context);
+                      // cp.showAlertDialog(context);
                     },
                   ),
                 ),
@@ -70,7 +70,7 @@ class ItemDetailsPage extends StatelessWidget {
                     trailing: const Text("01 Sep 2023"),
                     onTap: () {
                       ConfirmationPage cp = ConfirmationPage();
-                      cp.showAlertDialog(context);
+                      // cp.showAlertDialog(context);
                     },
                   ),
                 ),
@@ -90,7 +90,7 @@ class ItemDetailsPage extends StatelessWidget {
 
                     onTap: () {
                       ConfirmationPage cp = ConfirmationPage();
-                      cp.showAlertDialog(context);
+                      // cp.showAlertDialog(context);
                     },
                   ),
                 ),
@@ -109,7 +109,7 @@ class ItemDetailsPage extends StatelessWidget {
                     trailing: const Text("25 Jan 2022"),
                     onTap: () {
                       ConfirmationPage cp = ConfirmationPage();
-                      cp.showAlertDialog(context);
+                      // cp.showAlertDialog(context);
                     },
                   ),
                 ),

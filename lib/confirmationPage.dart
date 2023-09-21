@@ -1,7 +1,13 @@
+import 'package:crfid/services/Poset.dart';
 import 'package:flutter/material.dart';
 
-class ConfirmationPage {
-  showAlertDialog(BuildContext context) {
+class ConfirmationPage 
+{
+  showAlertDialog(BuildContext context,Poset e)
+   {
+
+    String po_number=e.ebeln.toString();
+    
     TextEditingController deliveryNoteController = TextEditingController();
     TextEditingController billOfLoadingController = TextEditingController();
     TextEditingController giSlipNoController = TextEditingController();
@@ -15,12 +21,12 @@ class ConfirmationPage {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            const Row(
+             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text("PO Number :"),
                 Text(
-                  "46000001919",
+                  po_number,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),

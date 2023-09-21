@@ -175,7 +175,7 @@ class _FirstTabState extends State<FirstTab> {
                             Text(convertDateFromMilliseconds(poset.aedat)),
                         onTap: () {
                           ConfirmationPage cp = ConfirmationPage();
-                          cp.showAlertDialog(context);
+                          cp.showAlertDialog(context,posets[index]);
                         },
                       ),
                     );
