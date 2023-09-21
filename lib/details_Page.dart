@@ -45,15 +45,7 @@ class DetailsPage extends StatelessWidget {
           children: [
             // First Tab
             FirstTab(),
-            FirstTab1(
-              DeliveryNote: '',
-              BillOfLoading: '',
-              GR_GI_SLIP_NO: '',
-              Header_Text: '',
-              Comments: '',
-              PO_NUMBER: '',
-              Transpotar_Name: '',
-            ),
+            FirstTab1(),
             ItemDetailsPage(),
           ],
         ),
@@ -166,14 +158,16 @@ class _FirstTabState extends State<FirstTab> {
                 }
                 logger.d('Selected date in format:  $selectedDateInFormat');
 
-                posets.sort(
-                    (a, b) => a.ebeln.toString().compareTo(b.ebeln.toString()));
+              posets.sort((a, b) => a.ebeln.toString().compareTo(b.ebeln.toString()));
+
+                
 
                 return ListView.builder(
                   itemCount: posets.length,
                   itemBuilder: (context, index) {
                     final poset = posets[index];
-
+                    
+                    
                     return Card(
                       child: ListTile(
                         title: Text(poset.ebeln),
@@ -182,7 +176,7 @@ class _FirstTabState extends State<FirstTab> {
                             Text(convertDateFromMilliseconds(poset.aedat)),
                         onTap: () {
                           ConfirmationPage cp = ConfirmationPage();
-                          cp.showAlertDialog(context, posets[index]);
+                          cp.showAlertDialog(context,posets[index]);
                         },
                       ),
                     );

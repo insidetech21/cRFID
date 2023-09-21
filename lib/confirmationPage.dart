@@ -1,11 +1,13 @@
-import 'package:crfid/details_Page1.dart';
 import 'package:crfid/services/Poset.dart';
 import 'package:flutter/material.dart';
 
-class ConfirmationPage {
-  showAlertDialog(BuildContext context, Poset e) {
-    String po_number = e.ebeln.toString();
+class ConfirmationPage 
+{
+  showAlertDialog(BuildContext context,Poset e)
+   {
 
+    String po_number=e.ebeln.toString();
+    
     TextEditingController deliveryNoteController = TextEditingController();
     TextEditingController billOfLoadingController = TextEditingController();
     TextEditingController giSlipNoController = TextEditingController();
@@ -19,13 +21,13 @@ class ConfirmationPage {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Row(
+             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text("PO Number :"),
+                Text("PO Number :"),
                 Text(
                   po_number,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -104,30 +106,15 @@ class ConfirmationPage {
           child: const Text("Continue"),
           onPressed: () {
             // Access form data
-            String poNumber = po_number;
+            /* String poNumber = poNumberController.text;
             String deliveryNote = deliveryNoteController.text;
             String billOfLoading = billOfLoadingController.text;
             String giSlipNo = giSlipNoController.text;
             String headerText = headerTextController.text;
             String transporterName = transporterNameController.text;
-            String comments = commentsController.text;
+            String comments = commentsController.text;*/
 
             // Process the form data here
-
-            //Continue the dialog
-
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => FirstTab1(
-                    DeliveryNote: deliveryNote,
-                    BillOfLoading: billOfLoading,
-                    GR_GI_SLIP_NO: giSlipNo,
-                    Header_Text: headerText,
-                    Comments: comments,
-                    PO_NUMBER: poNumber,
-                    Transpotar_Name: transporterName),
-              ),
-            );
 
             // Close the dialog
             Navigator.of(context).pop();
