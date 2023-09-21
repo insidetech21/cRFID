@@ -118,7 +118,6 @@ class _FirstTabState extends State<FirstTab> {
                 // If there's no data
                 return const Center(child: Text('No data available.'));
               } else {
-
                 var posets;
                 // Display the data in a ListView
                 // final posets = snapshot.data!;
@@ -140,28 +139,34 @@ class _FirstTabState extends State<FirstTab> {
                 //           posetDate.isAtSameMomentAs(selectedDateInDateTime));
                 // }).toList();
 
-                if(selectedDateInFormat==null){
+                if (selectedDateInFormat == null) {
                   posets = snapshot.data!;
-                }
-                else{
-                    posets = snapshot.data!.where((poset) {
-                  final posetDate =  convertDateFromMilliseconds( poset.aedat);
-                  logger.d('poset.aedat:  $posetDate');
-                  
-                  final selectedDateInFormat2=convertDateFromMilliseconds(selectedDateInFormat!);
-                  logger.d('Selected date in format:  $selectedDateInFormat2');
+                } else {
+                  posets = snapshot.data!.where((poset) {
+                    final posetDate = convertDateFromMilliseconds(poset.aedat);
+                    logger.d('poset.aedat:  $posetDate');
 
-                  return selectedDateInFormat == null ||
-                      (posetDate != null &&
-                          posetDate.contains(selectedDateInFormat2));
-                }).toList();
+                    final selectedDateInFormat2 =
+                        convertDateFromMilliseconds(selectedDateInFormat!);
+                    logger
+                        .d('Selected date in format:  $selectedDateInFormat2');
+
+                    return selectedDateInFormat == null ||
+                        (posetDate != null &&
+                            posetDate.contains(selectedDateInFormat2));
+                  }).toList();
                 }
                 logger.d('Selected date in format:  $selectedDateInFormat');
+
+
+                
 
                 return ListView.builder(
                   itemCount: posets.length,
                   itemBuilder: (context, index) {
                     final poset = posets[index];
+                    
+                    
                     return Card(
                       child: ListTile(
                         title: Text(poset.ebeln),
