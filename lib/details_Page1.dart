@@ -3,13 +3,39 @@ import 'package:flutter/material.dart';
 import 'confirmationPage.dart';
 
 class FirstTab1 extends StatelessWidget {
-  const FirstTab1({super.key});
+  const FirstTab1({
+    super.key,
+    required this.DeliveryNote,
+    required this.BillOfLoading,
+    required this.GR_GI_SLIP_NO,
+    required this.Comments,
+    required this.PO_NUMBER,
+    required this.Header_Text,
+    required this.Transpotar_Name,
+  });
+
+  final String PO_NUMBER,
+      DeliveryNote,
+      BillOfLoading,
+      GR_GI_SLIP_NO,
+      Header_Text,
+      Transpotar_Name,
+      Comments;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
+          CollapsibleList(
+            PO_NUMBER: PO_NUMBER,
+            DeliveryNote: DeliveryNote,
+            BillOfLoading: BillOfLoading,
+            GR_GI_SLIP_NO: GR_GI_SLIP_NO,
+            Header_Text: Header_Text,
+            Transpotar_Name: Transpotar_Name,
+            Comments: Comments,
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -37,7 +63,6 @@ class FirstTab1 extends StatelessWidget {
               children: <Widget>[
                 Card(
                   child: ListTile(
-                    //leading: Image.asset('assets/goods_receipt.png'), // Replace with your image asset path
                     title: const Text("Item No. 10"),
                     subtitle: const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,70 +79,72 @@ class FirstTab1 extends StatelessWidget {
                     },
                   ),
                 ),
-                Card(
-                  child: ListTile(
-                    //leading: Image.asset('assets/goods_receipt.png'), // Replace with your image asset path
-                    title: const Text("Item No. 20"),
-                    subtitle: const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("Material No.FG119AF90"),
-                        Text("Material Description: Sleeve Value"),
-                        Text("Open Quantity: 20"),
-                      ],
-                    ),
-                    trailing: const Text("01 Sep 2023"),
-                    onTap: () {
-                      ConfirmationPage cp = ConfirmationPage();
-                      // cp.showAlertDialog(context);
-                    },
-                  ),
-                ),
-                Card(
-                  child: ListTile(
-                    //leading: Image.asset('assets/goods_receipt.png'), // Replace with your image asset path
-                    title: const Text("Item No. 30"),
-                    subtitle: const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("Material No.FG119AF91"),
-                        Text("Material Description: Rotary Value"),
-                        Text("Open Quantity: 20"),
-                      ],
-                    ),
-                    trailing: const Text("20 Aug 2023"),
-
-                    onTap: () {
-                      ConfirmationPage cp = ConfirmationPage();
-                      // cp.showAlertDialog(context);
-                    },
-                  ),
-                ),
-                Card(
-                  child: ListTile(
-                    //leading: Image.asset('assets/goods_receipt.png'), // Replace with your image asset path
-                    title: const Text("Item No. 30"),
-                    subtitle: const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("Material No.FG119AF91"),
-                        Text("Material Description: Rotary Value"),
-                        Text("Open Quantity: 20"),
-                      ],
-                    ),
-                    trailing: const Text("25 Jan 2022"),
-                    onTap: () {
-                      ConfirmationPage cp = ConfirmationPage();
-                      // cp.showAlertDialog(context);
-                    },
-                  ),
-                ),
                 // Add more list items as needed
               ],
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class CollapsibleList extends StatefulWidget {
+  const CollapsibleList({
+    Key? key,
+    required this.PO_NUMBER,
+    required this.DeliveryNote,
+    required this.BillOfLoading,
+    required this.GR_GI_SLIP_NO,
+    required this.Comments,
+    required this.Header_Text,
+    required this.Transpotar_Name,
+  }) : super(key: key);
+
+  final String PO_NUMBER,
+      DeliveryNote,
+      BillOfLoading,
+      GR_GI_SLIP_NO,
+      Header_Text,
+      Transpotar_Name,
+      Comments;
+
+  @override
+  _CollapsibleListState createState() => _CollapsibleListState();
+}
+
+class _CollapsibleListState extends State<CollapsibleList> {
+  bool isExpanded =
+  false; // To control whether the list is expanded or collapsed
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ListTile(
+          title: Text(widget.PO_NUMBER),
+          trailing: Icon(
+            isExpanded ? Icons.expand_less : Icons.expand_more,
+          ),
+          onTap: () {
+            setState(() {
+              isExpanded = !isExpanded; // Toggle the expansion state
+            });
+          },
+        ),
+        if (isExpanded)
+        // The list items to display when expanded
+          Column(
+            children: [
+              ListTile(title: Text(widget.Header_Text)),
+              ListTile(title: Text(widget.DeliveryNote)),
+              ListTile(title: Text(widget.BillOfLoading)),
+              ListTile(title: Text(widget.GR_GI_SLIP_NO)),
+              ListTile(title: Text(widget.Transpotar_Name)),
+              ListTile(title: Text(widget.Comments)),
+            ],
+          ),
+      ],
     );
   }
 }
