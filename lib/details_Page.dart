@@ -1,5 +1,5 @@
 import 'package:crfid/item_details_Page.dart';
-import 'package:crfid/model/Poset.dart';
+import 'package:crfid/services/Poset.dart';
 import 'package:crfid/services/in_poset_api.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
@@ -96,7 +96,7 @@ class _FirstTabState extends State<FirstTab> {
                 ),
               ),
               IconButton(
-                icon: const Icon(Icons.calendar_today),
+                icon: Icon(Icons.calendar_today),
                 onPressed: () {
                   _selectDate(
                       context); // Open the date picker when the icon is pressed
@@ -127,6 +127,25 @@ class _FirstTabState extends State<FirstTab> {
                 return const Center(child: Text('No data available.'));
               } else {
                 var posets;
+                // Display the data in a ListView
+                // final posets = snapshot.data!;
+
+                // final posets = snapshot.data!.where((poset) {
+                //   final posetDate = poset.aedat;
+                //   return
+                //   selectedDate == null ||
+                //   posetDate == selectedDateInFormat;
+                // }).toList();
+
+                // final posets = snapshot.data!.where((poset) {
+                //   final posetDate = DateTime.tryParse(poset.aedat);
+                //   final selectedDateInDateTime =
+                //       DateTime.tryParse(selectedDateInFormat!);
+
+                //   return selectedDateInDateTime == null ||
+                //       (posetDate != null &&
+                //           posetDate.isAtSameMomentAs(selectedDateInDateTime));
+                // }).toList();
 
                 if (selectedDateInFormat == null) {
                   posets = snapshot.data!;
@@ -163,17 +182,7 @@ class _FirstTabState extends State<FirstTab> {
                             Text(convertDateFromMilliseconds(poset.aedat)),
                         onTap: () {
                           ConfirmationPage cp = ConfirmationPage();
-                          cp.showAlertDialog(context, posets[index], (data) {
-                            // Handle the data here
-                            String? deliveryNote = data["deliveryNote"];
-                            String? billOfLoading = data["billOfLoading"];
-                            String? giSlipNo = data["giSlipNo"];
-                            String? headerText = data["headerText"];
-                            String? transporterName = data["transporterName"];
-                            String? comments = data["comments"];
-
-                            // Use the data as needed
-                          });
+                          cp.showAlertDialog(context, posets[index]);
                         },
                       ),
                     );
