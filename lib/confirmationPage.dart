@@ -1,9 +1,8 @@
-import 'package:crfid/details_Page1.dart';
-import 'package:crfid/services/Poset.dart';
+import 'package:crfid/model/Poset.dart';
 import 'package:flutter/material.dart';
 
 class ConfirmationPage {
-  showAlertDialog(BuildContext context, Poset e) {
+  showAlertDialog(BuildContext context, Poset e, Function(Map<String, String>) onContinue) {
     String po_number = e.ebeln.toString();
 
     TextEditingController deliveryNoteController = TextEditingController();
@@ -112,9 +111,23 @@ class ConfirmationPage {
             String transporterName = transporterNameController.text;
             String comments = commentsController.text;
 
-            // Process the form data here
 
-            //Continue the dialog
+            // Create a Map to store the data
+            Map<String, String> data = {
+              "poNumber": poNumber,
+              "deliveryNote": deliveryNote,
+              "billOfLoading": billOfLoading,
+              "giSlipNo": giSlipNo,
+              "headerText": headerText,
+              "transporterName": transporterName,
+              "comments": comments,
+            };
+
+            // Trigger the callback function with the data
+            onContinue(data);
+
+
+            /*//Continue the dialog
 
             Navigator.of(context).push(
               MaterialPageRoute(
@@ -127,7 +140,7 @@ class ConfirmationPage {
                     PO_NUMBER: poNumber,
                     Transpotar_Name: transporterName),
               ),
-            );
+            );*/
 
             // Close the dialog
             Navigator.of(context).pop();
