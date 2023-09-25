@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'confirmationPage.dart';
+import 'model/PoItemSet.dart';
+import 'package:crfid/services/in_PoItemSet_api.dart';
 
 class FirstTab1 extends StatelessWidget {
   const FirstTab1({
@@ -27,15 +29,6 @@ class FirstTab1 extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          CollapsibleList(
-            PO_NUMBER: PO_NUMBER,
-            DeliveryNote: DeliveryNote,
-            BillOfLoading: BillOfLoading,
-            GR_GI_SLIP_NO: GR_GI_SLIP_NO,
-            Header_Text: Header_Text,
-            Transpotar_Name: Transpotar_Name,
-            Comments: Comments,
-          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -58,29 +51,103 @@ class FirstTab1 extends StatelessWidget {
               ],
             ),
           ),
+          Card(
+            child: ListTile(
+              title: CollapsibleList(
+                PO_NUMBER: PO_NUMBER,
+                DeliveryNote: DeliveryNote,
+                BillOfLoading: BillOfLoading,
+                GR_GI_SLIP_NO: GR_GI_SLIP_NO,
+                Header_Text: Header_Text,
+                Transpotar_Name: Transpotar_Name,
+                Comments: Comments,
+              ),
+            ),
+          ),
           Expanded(
-            child: ListView(
-              children: <Widget>[
-                Card(
-                  child: ListTile(
-                    title: const Text("Item No. 10"),
-                    subtitle: const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("Material No.FG119AF67"),
-                        Text("Material Description: 3/4 Pistons"),
-                        Text("Open Quantity: 20"),
-                      ],
-                    ),
-                    trailing: const Text("01 Oct 2025"),
-                    onTap: () {
-                      ConfirmationPage cp = ConfirmationPage();
-                      // cp.showAlertDialog(context);
+            child: FutureBuilder<List<PosetItemSet>>(
+              future: InPOSet.fetchInPoSet(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return const Center(child: Text('No data available.'));
+                } else {
+                  var posets;
+                  posets = snapshot.data!;
+
+                  return ListView.builder(
+                    itemCount: posets.length,
+                    itemBuilder: (context, index) {
+                      final poset = posets[index];
+                      String ebelpWithoutZeros = int.parse(poset.ebelp).toString();
+
+                      return Card(
+                        child: ListTile(
+                          title: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              RichText(
+                                text: TextSpan(
+                                  style: DefaultTextStyle.of(context).style,
+                                  children: <TextSpan>[
+                                    const TextSpan(
+                                      text: "Item No: ",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: ebelpWithoutZeros,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              Text("Material No : ${poset.ebeln}",
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 12,
+                                ),
+                              ),
+                              Text("Material Description : ${poset.txz01}",
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 12,
+                                ),
+                              ),
+                              Text("Open Quantity : ${poset.menge}",
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
+                          ),
+                          onTap: () {
+                            ConfirmationPage cp = ConfirmationPage();
+                            cp.showAlertDialog(context, posets[index], (data) {
+                              String? deliveryNote = data["deliveryNote"];
+                              String? billOfLoading = data["billOfLoading"];
+                              String? giSlipNo = data["giSlipNo"];
+                              String? headerText = data["headerText"];
+                              String? transporterName = data["transporterName"];
+                              String? comments = data["comments"];
+                            });
+                          },
+                        ),
+                      );
                     },
-                  ),
-                ),
-                // Add more list items as needed
-              ],
+                  );
+                }
+              },
             ),
           ),
         ],
@@ -114,30 +181,34 @@ class CollapsibleList extends StatefulWidget {
 }
 
 class _CollapsibleListState extends State<CollapsibleList> {
-  bool isExpanded =
-  false; // To control whether the list is expanded or collapsed
+  bool isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         ListTile(
-          title: Text(widget.PO_NUMBER),
+          leading: Text(
+            "PO Number : ${widget.PO_NUMBER}",
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
+          title: Text(widget.DeliveryNote),
           trailing: Icon(
             isExpanded ? Icons.expand_less : Icons.expand_more,
           ),
           onTap: () {
             setState(() {
-              isExpanded = !isExpanded; // Toggle the expansion state
+              isExpanded = !isExpanded;
             });
           },
         ),
         if (isExpanded)
-        // The list items to display when expanded
           Column(
             children: [
               ListTile(title: Text(widget.Header_Text)),
-              ListTile(title: Text(widget.DeliveryNote)),
               ListTile(title: Text(widget.BillOfLoading)),
               ListTile(title: Text(widget.GR_GI_SLIP_NO)),
               ListTile(title: Text(widget.Transpotar_Name)),
@@ -148,3 +219,4 @@ class _CollapsibleListState extends State<CollapsibleList> {
     );
   }
 }
+

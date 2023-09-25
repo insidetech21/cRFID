@@ -1,10 +1,10 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import '../model/Poset.dart';
+import '../model/PoItemSet.dart';
 
 class InPOSet {
-  static Future<List<Poset>> fetchPOSET() async {
+  static Future<List<PosetItemSet>> fetchInPoSet() async {
     const String username = 'ashwin';
     const String password = 'Crave@2022';
 
@@ -26,8 +26,8 @@ class InPOSet {
     };
 
     const url =
-        "https://aincfapim.test.apimanagement.eu10.hana.ondemand.com/ZCIMS_INT_SRV/IN_POSet?\$filter=Aedat ge datetime'2023-02-02T00:00:00' and Aedat le datetime'2023-05-02T00:00:00' and Werks eq 'KR26'";
-    //final uri = Uri.parse(url);
+        "https://aincfapim.test.apimanagement.eu10.hana.ondemand.com/ZCIMS_INT_SRV/IN_POSet('4500000010')/Navg_Po";
+         //final uri = Uri.parse(url);
 
     try {
       final response = await http.get(Uri.parse(url), headers: headers);
@@ -43,7 +43,7 @@ class InPOSet {
         final List results = jsonDecode(response.body)['d']['results'];
 
         // return posets;
-        return results.map(((e) => Poset.fromJson(e))).toList();
+        return results.map(((e) => PosetItemSet.fromJson(e))).toList();
       } else {
         // print("Error response: ${response.statusCode}");
         // print("Error body: ${response.body}");
