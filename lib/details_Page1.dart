@@ -219,3 +219,4 @@ class _CollapsibleListState extends State<CollapsibleList> {
     );
   }
 }
+
