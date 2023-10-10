@@ -1,18 +1,21 @@
+import 'package:crfid/ConfirmtionData.dart';
 import 'package:crfid/confirmationPage.dart';
+import 'package:crfid/data%20provider/data_provider.dart';
 import 'package:crfid/model/Poset.dart';
 import 'package:crfid/services/in_poset_api.dart';
 import 'package:crfid/tabs/secondTab.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 
-class FirstTab extends StatefulWidget {
+class FirstTab extends ConsumerStatefulWidget {
   const FirstTab({Key? key}) : super(key: key);
 
   @override
-  State<FirstTab> createState() => _FirstTabState();
+  FirstTabState createState() => FirstTabState();
 }
 
-class _FirstTabState extends State<FirstTab> {
+class FirstTabState extends ConsumerState<FirstTab> {
   DateTime? selectedDate;
   String? selectedDateInFormat; // Add this variable to store the selected date
 
@@ -30,9 +33,13 @@ class _FirstTabState extends State<FirstTab> {
     '', // Comments
   ]; // Data to be displayed in CollapsibleList
 
+  ConfirmtionData cd= ConfirmtionData();
+
   @override
   Widget build(BuildContext context) {
     final tabController = DefaultTabController.of(context);
+    final confirmData11=ref.watch(confirmProvider);
+    
     return Column(
       children: [
         // Search Bar
@@ -262,15 +269,45 @@ class _FirstTabState extends State<FirstTab> {
                                   // onContinue(data);
 
                                   // Navigate to FirstTab1 widget
+
+                                  // setState(() {
+                                  //   cd.setPonumber(poNumber);
+                                  // cd.setDeliveryNote(deliveryNote);
+                                  // cd.setBillOfLoading(billOfLoading);
+                                  // cd.setGigrSlipNo(giSlipNo);
+                                  // cd.setHeaderText(headerText);
+                                  // cd.setTransporterName(transporterName);
+                                  // cd.setComments(comments);
+                                  // });
+
+                                  // confirmData11.ponumber=poNumber;
+                                  // confirmData11.deliveryNote=deliveryNote;
+                                  // confirmData11.billOfLoading=billOfLoading;
+                                  // confirmData11.gigrSlipNo=giSlipNo;
+                                  // confirmData11.headerText=headerText;
+                                  // confirmData11.transporterName=transporterName;
+                                  // confirmData11.comments=comments;
+
+                                  ref.read(confirmProvider.notifier).state=ConfirmtionData(
+                                    ponumber: poNumber,
+                                    deliveryNote: deliveryNote,
+                                    billOfLoading: billOfLoading,
+                                    gigrSlipNo: giSlipNo,
+                                    headerText: headerText,
+                                    transporterName: transporterName,
+                                    comments: comments
+                                  );
                                   
+                                  
+
                                       SecondTab(
-                                        DeliveryNote: deliveryNote,
-                                        BillOfLoading: billOfLoading,
-                                        GR_GI_SLIP_NO: giSlipNo,
-                                        Header_Text: headerText,
-                                        Comments: comments,
-                                        PO_NUMBER: poNumber,
-                                        Transpotar_Name: transporterName,
+                                        // DeliveryNote: deliveryNote,
+                                        // BillOfLoading: billOfLoading,
+                                        // GR_GI_SLIP_NO: giSlipNo,
+                                        // Header_Text: headerText,
+                                        // Comments: comments,
+                                        // PO_NUMBER: poNumber,
+                                        // Transpotar_Name: transporterName,
                                       );
                                       tabController.animateTo(1);
                                     

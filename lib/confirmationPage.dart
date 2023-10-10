@@ -145,13 +145,13 @@ class ConfirmationPage {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => SecondTab(
-                  DeliveryNote: deliveryNote,
-                  BillOfLoading: billOfLoading,
-                  GR_GI_SLIP_NO: giSlipNo,
-                  Header_Text: headerText,
-                  Comments: comments,
-                  PO_NUMBER: poNumber,
-                  Transpotar_Name: transporterName,
+                  // DeliveryNote: deliveryNote,
+                  // BillOfLoading: billOfLoading,
+                  // GR_GI_SLIP_NO: giSlipNo,
+                  // Header_Text: headerText,
+                  // Comments: comments,
+                  // PO_NUMBER: poNumber,
+                  // Transpotar_Name: transporterName,
                 ),
               ),
             );

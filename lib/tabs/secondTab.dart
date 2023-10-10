@@ -1,36 +1,43 @@
+import 'package:crfid/ConfirmtionData.dart';
+import 'package:crfid/data%20provider/data_provider.dart';
 import 'package:crfid/model/PoItemSet.dart';
 import 'package:flutter/material.dart';
 
 import 'package:crfid/services/in_PoItemSet_api.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SecondTab extends StatefulWidget {
+class SecondTab extends ConsumerStatefulWidget {
   const SecondTab({
     Key? key, // Fix the super.key to Key? key
-    required this.PO_NUMBER,
-    required this.DeliveryNote,
-    required this.BillOfLoading,
-    required this.GR_GI_SLIP_NO,
-    required this.Comments,
-    required this.Header_Text,
-    required this.Transpotar_Name,
+    // required this.PO_NUMBER,
+    // required this.DeliveryNote,
+    // required this.BillOfLoading,
+    // required this.GR_GI_SLIP_NO,
+    // required this.Comments,
+    // required this.Header_Text,
+    // required this.Transpotar_Name,
   }) : super(key: key);
 
-  final String PO_NUMBER,
-      DeliveryNote,
-      BillOfLoading,
-      GR_GI_SLIP_NO,
-      Header_Text,
-      Transpotar_Name,
-      Comments;
+  // final String PO_NUMBER,
+  //     DeliveryNote,
+  //     BillOfLoading,
+  //     GR_GI_SLIP_NO,
+  //     Header_Text,
+  //     Transpotar_Name,
+  //     Comments;
 
   @override
-  _SecondTabState createState() => _SecondTabState();
+  SecondTabState createState() => SecondTabState();
 }
 
 
-class _SecondTabState extends State<SecondTab> {
+class SecondTabState extends ConsumerState<SecondTab> {
+
+  
   @override
   Widget build(BuildContext context) {
+
+    final confirmData1=ref.watch(confirmProvider);
     return Scaffold(
       body: Column(
         children: [
@@ -59,7 +66,7 @@ class _SecondTabState extends State<SecondTab> {
           Card(
             child: ListTile(
               title: CollapsibleList(
-                PO_NUMBER: widget.PO_NUMBER,
+                PO_NUMBER: confirmData1.ponumber,
               ),
             ),
           ),
@@ -170,7 +177,7 @@ class _SecondTabState extends State<SecondTab> {
   }
 }
 
-class CollapsibleList extends StatefulWidget {
+class CollapsibleList extends ConsumerStatefulWidget {
   const CollapsibleList({
     Key? key,
     required this.PO_NUMBER,
@@ -179,10 +186,10 @@ class CollapsibleList extends StatefulWidget {
   final String PO_NUMBER;
 
   @override
-  _CollapsibleListState createState() => _CollapsibleListState();
+  CollapsibleListState createState() => CollapsibleListState();
 }
 
-class _CollapsibleListState extends State<CollapsibleList> {
+class CollapsibleListState extends ConsumerState<CollapsibleList> {
   bool isExpanded = false;
   List<String> confirmationData = [
     '', // DeliveryNote
@@ -193,13 +200,16 @@ class _CollapsibleListState extends State<CollapsibleList> {
     '', // Comments
   ]; // Data to be displayed in CollapsibleList
 
+  ConfirmtionData cd3=ConfirmtionData();
+
   @override
   Widget build(BuildContext context) {
+    final confirmdata2=ref.watch(confirmProvider);
     return Column(
       children: [
         ListTile(
           leading: Text(
-            "PO Number : ${widget.PO_NUMBER}",
+            "PO Number : ${confirmdata2.ponumber}",
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
@@ -218,11 +228,12 @@ class _CollapsibleListState extends State<CollapsibleList> {
         if (isExpanded)
           Column(
             children: [
-              ListTile(title: Text(confirmationData[1])), // Display BillOfLoading
-              ListTile(title: Text(confirmationData[2])), // Display GR_GI_SLIP_NO
-              ListTile(title: Text(confirmationData[3])), // Display Header_Text
-              ListTile(title: Text(confirmationData[4])), // Display Transpotar_Name
-              ListTile(title: Text(confirmationData[5])), // Display Comments
+              ListTile(title: Text('Delivery Note: '+confirmdata2.deliveryNote)), // Display BillOfLoading
+              ListTile(title: Text('Bill Of Loading: '+confirmdata2.billOfLoading)), // Display GR_GI_SLIP_NO
+              ListTile(title: Text('GI/GR Slip No.: '+confirmdata2.gigrSlipNo)), // Display Header_Text
+              ListTile(title: Text('Header Text: '+confirmdata2.headerText)), // Display Transpotar_Name
+              ListTile(title: Text('Transporter Name: '+confirmdata2.transporterName)),
+              ListTile(title: Text('Comments: '+confirmdata2.comments)), // Display Comments
             ],
           ),
       ],
