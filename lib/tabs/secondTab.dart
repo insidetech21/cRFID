@@ -72,7 +72,7 @@ class SecondTabState extends ConsumerState<SecondTab> {
           ),
           Expanded(
             child: FutureBuilder<List<PosetItemSet>>(
-              future: InPOSet.fetchInPoSet(),
+              future: InPOSet.fetchInPoSet(confirmData1.ponumber),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
