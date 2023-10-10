@@ -8,12 +8,13 @@ class ConfirmtionData {
   String comments;
 
   ConfirmtionData({
-    required this.ponumber,
-    required this.deliveryNote,
-    required this.billOfLoading,
-    required this.gigrSlipNo,
-    required this.headerText,
-    required this.transporterName,
-    required this.comments,
+     this.ponumber='',
+     this.deliveryNote='',
+     this.billOfLoading='',
+     this.gigrSlipNo='',
+     this.headerText='',
+     this.transporterName='',
+     this.comments='',
   });
+
 }
