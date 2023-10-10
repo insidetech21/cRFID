@@ -1,9 +1,16 @@
 import 'package:crfid/model/Poset.dart';
 import 'package:flutter/material.dart';
+import 'details_Page1.dart';
 
 class ConfirmationPage {
+
+  final Function(List<String>) onConfirmationDataUpdated;
+
+  ConfirmationPage({required this.onConfirmationDataUpdated});
+
   showAlertDialog(BuildContext context, Poset e, Function(Map<String, String>) onContinue) {
     String po_number = e.ebeln.toString();
+
 
     TextEditingController deliveryNoteController = TextEditingController();
     TextEditingController billOfLoadingController = TextEditingController();
@@ -111,6 +118,15 @@ class ConfirmationPage {
             String transporterName = transporterNameController.text;
             String comments = commentsController.text;
 
+            // Update the data using the callback
+            onConfirmationDataUpdated([
+              deliveryNote,
+              billOfLoading,
+              giSlipNo,
+              headerText,
+              transporterName,
+              comments,
+            ]);
 
             // Create a Map to store the data
             Map<String, String> data = {
@@ -126,26 +142,26 @@ class ConfirmationPage {
             // Trigger the callback function with the data
             onContinue(data);
 
-
-            /*//Continue the dialog
-
+            // Navigate to FirstTab1 widget
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => FirstTab1(
-                    DeliveryNote: deliveryNote,
-                    BillOfLoading: billOfLoading,
-                    GR_GI_SLIP_NO: giSlipNo,
-                    Header_Text: headerText,
-                    Comments: comments,
-                    PO_NUMBER: poNumber,
-                    Transpotar_Name: transporterName),
+                  DeliveryNote: deliveryNote,
+                  BillOfLoading: billOfLoading,
+                  GR_GI_SLIP_NO: giSlipNo,
+                  Header_Text: headerText,
+                  Comments: comments,
+                  PO_NUMBER: poNumber,
+                  Transpotar_Name: transporterName,
+                ),
               ),
-            );*/
+            );
 
             // Close the dialog
             Navigator.of(context).pop();
           },
         ),
+
       ],
     );
 

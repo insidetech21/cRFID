@@ -78,6 +78,15 @@ class _FirstTabState extends State<FirstTab> {
     printer: PrettyPrinter(), // You can customize the log output format
   );
 
+  List<String> confirmationData = [
+    '', // DeliveryNote
+    '', // BillOfLoading
+    '', // GR_GI_SLIP_NO
+    '', // Header_Text
+    '', // Transpotar_Name
+    '', // Comments
+  ]; // Data to be displayed in CollapsibleList
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -162,7 +171,12 @@ class _FirstTabState extends State<FirstTab> {
                         trailing:
                         Text(convertDateFromMilliseconds(poset.aedat)),
                         onTap: () {
-                          ConfirmationPage cp = ConfirmationPage();
+                          ConfirmationPage cp = ConfirmationPage(
+                            onConfirmationDataUpdated: (List<String> data) {
+                              // Update the data in CollapsibleList
+                              updateConfirmationData(data);
+                            },
+                          );
                           cp.showAlertDialog(context, posets[index], (data) {
                             // Handle the data here
                             String? deliveryNote = data["deliveryNote"];
@@ -185,6 +199,13 @@ class _FirstTabState extends State<FirstTab> {
         ),
       ],
     );
+  }
+
+  void updateConfirmationData(List<String> data) {
+    // Update the data in CollapsibleList
+    setState(() {
+      confirmationData = data;
+    });
   }
 
   String convertDateFromMilliseconds(String dateStr) {
@@ -241,3 +262,5 @@ class _FirstTabState extends State<FirstTab> {
     }
   }
 }
+
+

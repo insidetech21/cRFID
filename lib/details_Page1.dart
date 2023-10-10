@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
-
 import 'confirmationPage.dart';
 import 'model/PoItemSet.dart';
 import 'package:crfid/services/in_PoItemSet_api.dart';
 
-class FirstTab1 extends StatelessWidget {
+class FirstTab1 extends StatefulWidget {
   const FirstTab1({
-    super.key,
+    Key? key, // Fix the super.key to Key? key
+    required this.PO_NUMBER,
     required this.DeliveryNote,
     required this.BillOfLoading,
     required this.GR_GI_SLIP_NO,
     required this.Comments,
-    required this.PO_NUMBER,
     required this.Header_Text,
     required this.Transpotar_Name,
-  });
+  }) : super(key: key);
 
   final String PO_NUMBER,
       DeliveryNote,
@@ -24,6 +23,12 @@ class FirstTab1 extends StatelessWidget {
       Transpotar_Name,
       Comments;
 
+  @override
+  _FirstTab1State createState() => _FirstTab1State();
+}
+
+
+class _FirstTab1State extends State<FirstTab1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,13 +59,7 @@ class FirstTab1 extends StatelessWidget {
           Card(
             child: ListTile(
               title: CollapsibleList(
-                PO_NUMBER: PO_NUMBER,
-                DeliveryNote: DeliveryNote,
-                BillOfLoading: BillOfLoading,
-                GR_GI_SLIP_NO: GR_GI_SLIP_NO,
-                Header_Text: Header_Text,
-                Transpotar_Name: Transpotar_Name,
-                Comments: Comments,
+                PO_NUMBER: widget.PO_NUMBER,
               ),
             ),
           ),
@@ -82,7 +81,8 @@ class FirstTab1 extends StatelessWidget {
                     itemCount: posets.length,
                     itemBuilder: (context, index) {
                       final poset = posets[index];
-                      String ebelpWithoutZeros = int.parse(poset.ebelp).toString();
+                      String ebelpWithoutZeros =
+                      int.parse(poset.ebelp).toString();
 
                       return Card(
                         child: ListTile(
@@ -132,15 +132,29 @@ class FirstTab1 extends StatelessWidget {
                             ],
                           ),
                           onTap: () {
-                            ConfirmationPage cp = ConfirmationPage();
+                           /* ConfirmationPage cp = ConfirmationPage(onConfirmationDataUpdated: (List<String> ) {  });
                             cp.showAlertDialog(context, posets[index], (data) {
+                              // Handle the data here
                               String? deliveryNote = data["deliveryNote"];
                               String? billOfLoading = data["billOfLoading"];
                               String? giSlipNo = data["giSlipNo"];
                               String? headerText = data["headerText"];
                               String? transporterName = data["transporterName"];
                               String? comments = data["comments"];
-                            });
+
+                              // Update the data in CollapsibleList
+                              cp.updateConfirmationData([
+                                deliveryNote,
+                                billOfLoading,
+                                giSlipNo,
+                                headerText,
+                                transporterName,
+                                comments,
+                              ]);
+
+                              // Close the dialog
+                              Navigator.of(context).pop();
+                            });*/
                           },
                         ),
                       );
@@ -160,21 +174,9 @@ class CollapsibleList extends StatefulWidget {
   const CollapsibleList({
     Key? key,
     required this.PO_NUMBER,
-    required this.DeliveryNote,
-    required this.BillOfLoading,
-    required this.GR_GI_SLIP_NO,
-    required this.Comments,
-    required this.Header_Text,
-    required this.Transpotar_Name,
   }) : super(key: key);
 
-  final String PO_NUMBER,
-      DeliveryNote,
-      BillOfLoading,
-      GR_GI_SLIP_NO,
-      Header_Text,
-      Transpotar_Name,
-      Comments;
+  final String PO_NUMBER;
 
   @override
   _CollapsibleListState createState() => _CollapsibleListState();
@@ -182,6 +184,14 @@ class CollapsibleList extends StatefulWidget {
 
 class _CollapsibleListState extends State<CollapsibleList> {
   bool isExpanded = false;
+  List<String> confirmationData = [
+    '', // DeliveryNote
+    '', // BillOfLoading
+    '', // GR_GI_SLIP_NO
+    '', // Header_Text
+    '', // Transpotar_Name
+    '', // Comments
+  ]; // Data to be displayed in CollapsibleList
 
   @override
   Widget build(BuildContext context) {
@@ -195,7 +205,7 @@ class _CollapsibleListState extends State<CollapsibleList> {
               fontSize: 16,
             ),
           ),
-          title: Text(widget.DeliveryNote),
+          title: Text(confirmationData[0]), // Display DeliveryNote initially
           trailing: Icon(
             isExpanded ? Icons.expand_less : Icons.expand_more,
           ),
@@ -208,14 +218,15 @@ class _CollapsibleListState extends State<CollapsibleList> {
         if (isExpanded)
           Column(
             children: [
-              ListTile(title: Text(widget.Header_Text)),
-              ListTile(title: Text(widget.BillOfLoading)),
-              ListTile(title: Text(widget.GR_GI_SLIP_NO)),
-              ListTile(title: Text(widget.Transpotar_Name)),
-              ListTile(title: Text(widget.Comments)),
+              ListTile(title: Text(confirmationData[1])), // Display BillOfLoading
+              ListTile(title: Text(confirmationData[2])), // Display GR_GI_SLIP_NO
+              ListTile(title: Text(confirmationData[3])), // Display Header_Text
+              ListTile(title: Text(confirmationData[4])), // Display Transpotar_Name
+              ListTile(title: Text(confirmationData[5])), // Display Comments
             ],
           ),
       ],
     );
   }
 }
+
