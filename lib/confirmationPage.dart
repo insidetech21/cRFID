@@ -36,16 +36,6 @@ class ConfirmationPage {
                 ),
               ],
             ),
-            /*TextFormField(
-              controller: poNumberController,
-              autofocus: true,
-              readOnly: true,
-              initialValue: "460007770",
-              decoration: const InputDecoration(
-                labelText: 'PO Number',
-                border: OutlineInputBorder(),
-              ),
-            ),*/
             const SizedBox(height: 8.0),
             TextFormField(
               controller: deliveryNoteController,
@@ -144,7 +134,7 @@ class ConfirmationPage {
             // Navigate to FirstTab1 widget
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => SecondTab(
+                builder: (context) => const SecondTab(
                   // DeliveryNote: deliveryNote,
                   // BillOfLoading: billOfLoading,
                   // GR_GI_SLIP_NO: giSlipNo,
