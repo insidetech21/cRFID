@@ -1,12 +1,9 @@
 import 'package:crfid/confirmationPage.dart';
 import 'package:crfid/model/Poset.dart';
 import 'package:crfid/services/in_poset_api.dart';
+import 'package:crfid/tabs/secondTab.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-
-
-
-
 
 class FirstTab extends StatefulWidget {
   const FirstTab({Key? key}) : super(key: key);
@@ -35,6 +32,7 @@ class _FirstTabState extends State<FirstTab> {
 
   @override
   Widget build(BuildContext context) {
+    final tabController = DefaultTabController.of(context);
     return Column(
       children: [
         // Search Bar
@@ -91,7 +89,7 @@ class _FirstTabState extends State<FirstTab> {
                     logger.d('poset.aedat:  $posetDate');
 
                     final selectedDateInFormat2 =
-                    convertDateFromMilliseconds(selectedDateInFormat!);
+                        convertDateFromMilliseconds(selectedDateInFormat!);
                     logger
                         .d('Selected date in format:  $selectedDateInFormat2');
 
@@ -102,7 +100,7 @@ class _FirstTabState extends State<FirstTab> {
                 logger.d('Selected date in format:  $selectedDateInFormat');
 
                 posets.sort(
-                        (a, b) => a.ebeln.toString().compareTo(b.ebeln.toString()));
+                    (a, b) => a.ebeln.toString().compareTo(b.ebeln.toString()));
 
                 return ListView.builder(
                   itemCount: posets.length,
@@ -114,12 +112,181 @@ class _FirstTabState extends State<FirstTab> {
                         title: Text(poset.ebeln),
                         subtitle: Text(poset.name1),
                         trailing:
-                        Text(convertDateFromMilliseconds(poset.aedat)),
+                            Text(convertDateFromMilliseconds(poset.aedat)),
                         onTap: () {
-                          ConfirmationPage cp = ConfirmationPage(
-                            
+                          // ConfirmationPage cp = ConfirmationPage(
+
+                          // );
+                          // cp.showAlertDialog(context, posets[index]
+                          // );
+
+                          String po_number = poset.ebeln.toString();
+
+                          TextEditingController deliveryNoteController =
+                              TextEditingController();
+                          TextEditingController billOfLoadingController =
+                              TextEditingController();
+                          TextEditingController giSlipNoController =
+                              TextEditingController();
+                          TextEditingController headerTextController =
+                              TextEditingController();
+                          TextEditingController transporterNameController =
+                              TextEditingController();
+                          TextEditingController commentsController =
+                              TextEditingController();
+
+                          AlertDialog alert = AlertDialog(
+                            title: const Center(child: Text("Confirmation")),
+                            content: SingleChildScrollView(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: <Widget>[
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Text("PO Number :"),
+                                      Text(
+                                        po_number,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  /*TextFormField(
+              controller: poNumberController,
+              autofocus: true,
+              readOnly: true,
+              initialValue: "460007770",
+              decoration: const InputDecoration(
+                labelText: 'PO Number',
+                border: OutlineInputBorder(),
+              ),
+            ),*/
+                                  const SizedBox(height: 8.0),
+                                  TextFormField(
+                                    controller: deliveryNoteController,
+                                    decoration: const InputDecoration(
+                                      labelText: 'Delivery Note',
+                                      border: OutlineInputBorder(),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8.0),
+                                  TextFormField(
+                                    controller: billOfLoadingController,
+                                    decoration: const InputDecoration(
+                                      labelText: 'Bill Of Loading',
+                                      border: OutlineInputBorder(),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8.0),
+                                  TextFormField(
+                                    controller: giSlipNoController,
+                                    decoration: const InputDecoration(
+                                      labelText: 'GR/GI Slip No.',
+                                      border: OutlineInputBorder(),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8.0),
+                                  TextFormField(
+                                    controller: headerTextController,
+                                    decoration: const InputDecoration(
+                                      labelText: 'Header Text',
+                                      border: OutlineInputBorder(),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8.0),
+                                  TextFormField(
+                                    controller: transporterNameController,
+                                    decoration: const InputDecoration(
+                                      labelText: 'Transporter Name',
+                                      border: OutlineInputBorder(),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8.0),
+                                  TextFormField(
+                                    controller: commentsController,
+                                    maxLines: 3,
+                                    decoration: const InputDecoration(
+                                      labelText: 'Comments',
+                                      border: OutlineInputBorder(),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                child: const Text("Cancel"),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              TextButton(
+                                child: const Text("Continue"),
+                                onPressed: () {
+                                  // Access form data
+                                  String poNumber = po_number;
+                                  String deliveryNote =
+                                      deliveryNoteController.text;
+                                  String billOfLoading =
+                                      billOfLoadingController.text;
+                                  String giSlipNo = giSlipNoController.text;
+                                  String headerText = headerTextController.text;
+                                  String transporterName =
+                                      transporterNameController.text;
+                                  String comments = commentsController.text;
+
+                                  // Update the data using the callback
+                                  // onConfirmationDataUpdated([
+                                  //   deliveryNote,
+                                  //   billOfLoading,
+                                  //   giSlipNo,
+                                  //   headerText,
+                                  //   transporterName,
+                                  //   comments,
+                                  // ]);
+
+                                  // Create a Map to store the data
+                                  // Map<String, String> data = {
+                                  //   "poNumber": poNumber,
+                                  //   "deliveryNote": deliveryNote,
+                                  //   "billOfLoading": billOfLoading,
+                                  //   "giSlipNo": giSlipNo,
+                                  //   "headerText": headerText,
+                                  //   "transporterName": transporterName,
+                                  //   "comments": comments,
+                                  // };
+
+                                  // // Trigger the callback function with the data
+                                  // onContinue(data);
+
+                                  // Navigate to FirstTab1 widget
+                                  
+                                      SecondTab(
+                                        DeliveryNote: deliveryNote,
+                                        BillOfLoading: billOfLoading,
+                                        GR_GI_SLIP_NO: giSlipNo,
+                                        Header_Text: headerText,
+                                        Comments: comments,
+                                        PO_NUMBER: poNumber,
+                                        Transpotar_Name: transporterName,
+                                      );
+                                      tabController.animateTo(1);
+                                    
+
+                                  // Close the dialog
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
                           );
-                          cp.showAlertDialog(context, posets[index]
+
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return alert;
+                            },
                           );
                         },
                       ),
@@ -160,14 +327,14 @@ class _FirstTabState extends State<FirstTab> {
 
     // Extract milliseconds from the string
     int milliseconds =
-    int.parse(dateStr.replaceAll(RegExp(r'/Date\(|\)/'), ''));
+        int.parse(dateStr.replaceAll(RegExp(r'/Date\(|\)/'), ''));
 
     // Convert milliseconds to DateTime
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(milliseconds);
 
     // Get the month name from the array
     String monthName =
-    monthNames[dateTime.month - 1]; // Subtract 1 because months are 1-based
+        monthNames[dateTime.month - 1]; // Subtract 1 because months are 1-based
 
     // Format the DateTime as dd/Mon/yyyy
     String formattedDate =
@@ -187,7 +354,7 @@ class _FirstTabState extends State<FirstTab> {
     if (picked != null && picked != selectedDate) {
       final millisecondsSinceEpoch = picked.millisecondsSinceEpoch;
       selectedDateInFormat =
-      '/Date($millisecondsSinceEpoch)/'; // Format the date
+          '/Date($millisecondsSinceEpoch)/'; // Format the date
       setState(() {
         selectedDateInFormat;
         selectedDate = picked;

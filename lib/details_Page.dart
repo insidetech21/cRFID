@@ -1,4 +1,3 @@
-
 import 'package:crfid/model/Poset.dart';
 import 'package:crfid/services/in_poset_api.dart';
 import 'package:crfid/tabs/firstTab.dart';
@@ -8,13 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'confirmationPage.dart';
 
-
 class DetailsPage extends StatelessWidget {
   const DetailsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
+      initialIndex: 0,
       length: 3,
       child: Scaffold(
         appBar: AppBar(
@@ -64,6 +63,3 @@ class DetailsPage extends StatelessWidget {
     );
   }
 }
-
-
-
