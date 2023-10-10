@@ -4,11 +4,9 @@ import 'details_Page1.dart';
 
 class ConfirmationPage {
 
-  final Function(List<String>) onConfirmationDataUpdated;
+ 
 
-  ConfirmationPage({required this.onConfirmationDataUpdated});
-
-  showAlertDialog(BuildContext context, Poset e, Function(Map<String, String>) onContinue) {
+  showAlertDialog(BuildContext context, Poset e) {
     String po_number = e.ebeln.toString();
 
 
@@ -119,28 +117,28 @@ class ConfirmationPage {
             String comments = commentsController.text;
 
             // Update the data using the callback
-            onConfirmationDataUpdated([
-              deliveryNote,
-              billOfLoading,
-              giSlipNo,
-              headerText,
-              transporterName,
-              comments,
-            ]);
+            // onConfirmationDataUpdated([
+            //   deliveryNote,
+            //   billOfLoading,
+            //   giSlipNo,
+            //   headerText,
+            //   transporterName,
+            //   comments,
+            // ]);
 
             // Create a Map to store the data
-            Map<String, String> data = {
-              "poNumber": poNumber,
-              "deliveryNote": deliveryNote,
-              "billOfLoading": billOfLoading,
-              "giSlipNo": giSlipNo,
-              "headerText": headerText,
-              "transporterName": transporterName,
-              "comments": comments,
-            };
+            // Map<String, String> data = {
+            //   "poNumber": poNumber,
+            //   "deliveryNote": deliveryNote,
+            //   "billOfLoading": billOfLoading,
+            //   "giSlipNo": giSlipNo,
+            //   "headerText": headerText,
+            //   "transporterName": transporterName,
+            //   "comments": comments,
+            // };
 
-            // Trigger the callback function with the data
-            onContinue(data);
+            // // Trigger the callback function with the data
+            // onContinue(data);
 
             // Navigate to FirstTab1 widget
             Navigator.of(context).push(

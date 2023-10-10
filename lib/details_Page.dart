@@ -4,7 +4,7 @@ import 'package:crfid/services/in_poset_api.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'confirmationPage.dart';
-import 'details_Page1.dart';
+import 'secondTab.dart';
 
 class DetailsPage extends StatelessWidget {
   const DetailsPage({Key? key}) : super(key: key);
@@ -45,7 +45,7 @@ class DetailsPage extends StatelessWidget {
           children: [
             // First Tab
             FirstTab(),
-            FirstTab1(
+            SecondTab(
               DeliveryNote: '',
               BillOfLoading: '',
               GR_GI_SLIP_NO: '',
@@ -171,22 +171,10 @@ class _FirstTabState extends State<FirstTab> {
                         Text(convertDateFromMilliseconds(poset.aedat)),
                         onTap: () {
                           ConfirmationPage cp = ConfirmationPage(
-                            onConfirmationDataUpdated: (List<String> data) {
-                              // Update the data in CollapsibleList
-                              updateConfirmationData(data);
-                            },
+                            
                           );
-                          cp.showAlertDialog(context, posets[index], (data) {
-                            // Handle the data here
-                            String? deliveryNote = data["deliveryNote"];
-                            String? billOfLoading = data["billOfLoading"];
-                            String? giSlipNo = data["giSlipNo"];
-                            String? headerText = data["headerText"];
-                            String? transporterName = data["transporterName"];
-                            String? comments = data["comments"];
-
-                            // Use the data as needed
-                          });
+                          cp.showAlertDialog(context, posets[index]
+                          );
                         },
                       ),
                     );
