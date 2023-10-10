@@ -1,5 +1,5 @@
 import 'package:crfid/item_details_Page.dart';
-import 'package:crfid/model/Poset.dart';
+import 'package:crfid/services/Poset.dart';
 import 'package:crfid/services/in_poset_api.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
@@ -78,15 +78,6 @@ class _FirstTabState extends State<FirstTab> {
     printer: PrettyPrinter(), // You can customize the log output format
   );
 
-  List<String> confirmationData = [
-    '', // DeliveryNote
-    '', // BillOfLoading
-    '', // GR_GI_SLIP_NO
-    '', // Header_Text
-    '', // Transpotar_Name
-    '', // Comments
-  ]; // Data to be displayed in CollapsibleList
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -105,7 +96,7 @@ class _FirstTabState extends State<FirstTab> {
                 ),
               ),
               IconButton(
-                icon: const Icon(Icons.calendar_today),
+                icon: Icon(Icons.calendar_today),
                 onPressed: () {
                   _selectDate(
                       context); // Open the date picker when the icon is pressed
@@ -136,6 +127,25 @@ class _FirstTabState extends State<FirstTab> {
                 return const Center(child: Text('No data available.'));
               } else {
                 var posets;
+                // Display the data in a ListView
+                // final posets = snapshot.data!;
+
+                // final posets = snapshot.data!.where((poset) {
+                //   final posetDate = poset.aedat;
+                //   return
+                //   selectedDate == null ||
+                //   posetDate == selectedDateInFormat;
+                // }).toList();
+
+                // final posets = snapshot.data!.where((poset) {
+                //   final posetDate = DateTime.tryParse(poset.aedat);
+                //   final selectedDateInDateTime =
+                //       DateTime.tryParse(selectedDateInFormat!);
+
+                //   return selectedDateInDateTime == null ||
+                //       (posetDate != null &&
+                //           posetDate.isAtSameMomentAs(selectedDateInDateTime));
+                // }).toList();
 
                 if (selectedDateInFormat == null) {
                   posets = snapshot.data!;
@@ -145,7 +155,7 @@ class _FirstTabState extends State<FirstTab> {
                     logger.d('poset.aedat:  $posetDate');
 
                     final selectedDateInFormat2 =
-                    convertDateFromMilliseconds(selectedDateInFormat!);
+                        convertDateFromMilliseconds(selectedDateInFormat!);
                     logger
                         .d('Selected date in format:  $selectedDateInFormat2');
 
@@ -157,7 +167,7 @@ class _FirstTabState extends State<FirstTab> {
                 logger.d('Selected date in format:  $selectedDateInFormat');
 
                 posets.sort(
-                        (a, b) => a.ebeln.toString().compareTo(b.ebeln.toString()));
+                    (a, b) => a.ebeln.toString().compareTo(b.ebeln.toString()));
 
                 return ListView.builder(
                   itemCount: posets.length,
@@ -169,25 +179,10 @@ class _FirstTabState extends State<FirstTab> {
                         title: Text(poset.ebeln),
                         subtitle: Text(poset.name1),
                         trailing:
-                        Text(convertDateFromMilliseconds(poset.aedat)),
+                            Text(convertDateFromMilliseconds(poset.aedat)),
                         onTap: () {
-                          ConfirmationPage cp = ConfirmationPage(
-                            onConfirmationDataUpdated: (List<String> data) {
-                              // Update the data in CollapsibleList
-                              updateConfirmationData(data);
-                            },
-                          );
-                          cp.showAlertDialog(context, posets[index], (data) {
-                            // Handle the data here
-                            String? deliveryNote = data["deliveryNote"];
-                            String? billOfLoading = data["billOfLoading"];
-                            String? giSlipNo = data["giSlipNo"];
-                            String? headerText = data["headerText"];
-                            String? transporterName = data["transporterName"];
-                            String? comments = data["comments"];
-
-                            // Use the data as needed
-                          });
+                          ConfirmationPage cp = ConfirmationPage();
+                          cp.showAlertDialog(context, posets[index]);
                         },
                       ),
                     );
@@ -199,13 +194,6 @@ class _FirstTabState extends State<FirstTab> {
         ),
       ],
     );
-  }
-
-  void updateConfirmationData(List<String> data) {
-    // Update the data in CollapsibleList
-    setState(() {
-      confirmationData = data;
-    });
   }
 
   String convertDateFromMilliseconds(String dateStr) {
@@ -227,14 +215,14 @@ class _FirstTabState extends State<FirstTab> {
 
     // Extract milliseconds from the string
     int milliseconds =
-    int.parse(dateStr.replaceAll(RegExp(r'/Date\(|\)/'), ''));
+        int.parse(dateStr.replaceAll(RegExp(r'/Date\(|\)/'), ''));
 
     // Convert milliseconds to DateTime
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(milliseconds);
 
     // Get the month name from the array
     String monthName =
-    monthNames[dateTime.month - 1]; // Subtract 1 because months are 1-based
+        monthNames[dateTime.month - 1]; // Subtract 1 because months are 1-based
 
     // Format the DateTime as dd/Mon/yyyy
     String formattedDate =
@@ -254,7 +242,7 @@ class _FirstTabState extends State<FirstTab> {
     if (picked != null && picked != selectedDate) {
       final millisecondsSinceEpoch = picked.millisecondsSinceEpoch;
       selectedDateInFormat =
-      '/Date($millisecondsSinceEpoch)/'; // Format the date
+          '/Date($millisecondsSinceEpoch)/'; // Format the date
       setState(() {
         selectedDateInFormat;
         selectedDate = picked;
@@ -262,5 +250,3 @@ class _FirstTabState extends State<FirstTab> {
     }
   }
 }
-
-
