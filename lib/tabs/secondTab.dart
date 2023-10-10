@@ -1,10 +1,10 @@
+import 'package:crfid/model/PoItemSet.dart';
 import 'package:flutter/material.dart';
-import 'confirmationPage.dart';
-import 'model/PoItemSet.dart';
+
 import 'package:crfid/services/in_PoItemSet_api.dart';
 
-class FirstTab1 extends StatefulWidget {
-  const FirstTab1({
+class SecondTab extends StatefulWidget {
+  const SecondTab({
     Key? key, // Fix the super.key to Key? key
     required this.PO_NUMBER,
     required this.DeliveryNote,
@@ -24,11 +24,11 @@ class FirstTab1 extends StatefulWidget {
       Comments;
 
   @override
-  _FirstTab1State createState() => _FirstTab1State();
+  _SecondTabState createState() => _SecondTabState();
 }
 
 
-class _FirstTab1State extends State<FirstTab1> {
+class _SecondTabState extends State<SecondTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,6 +1,7 @@
 import 'package:crfid/model/Poset.dart';
+import 'package:crfid/tabs/secondTab.dart';
 import 'package:flutter/material.dart';
-import 'details_Page1.dart';
+
 
 class ConfirmationPage {
 
@@ -143,7 +144,7 @@ class ConfirmationPage {
             // Navigate to FirstTab1 widget
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => FirstTab1(
+                builder: (context) => SecondTab(
                   DeliveryNote: deliveryNote,
                   BillOfLoading: billOfLoading,
                   GR_GI_SLIP_NO: giSlipNo,

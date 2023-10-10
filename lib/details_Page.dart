@@ -1,11 +1,13 @@
-import 'package:crfid/firstTab.dart';
-import 'package:crfid/item_details_Page.dart';
+
 import 'package:crfid/model/Poset.dart';
 import 'package:crfid/services/in_poset_api.dart';
+import 'package:crfid/tabs/firstTab.dart';
+import 'package:crfid/tabs/item_details_Page.dart';
+import 'package:crfid/tabs/secondTab.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'confirmationPage.dart';
-import 'secondTab.dart';
+
 
 class DetailsPage extends StatelessWidget {
   const DetailsPage({Key? key}) : super(key: key);
