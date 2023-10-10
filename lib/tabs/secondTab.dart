@@ -36,6 +36,7 @@ class SecondTabState extends ConsumerState<SecondTab> {
   
   @override
   Widget build(BuildContext context) {
+    final tabcontroller=DefaultTabController.of(context);
 
     final confirmData1=ref.watch(confirmProvider);
     return Scaffold(
@@ -91,80 +92,83 @@ class SecondTabState extends ConsumerState<SecondTab> {
                       String ebelpWithoutZeros =
                       int.parse(poset.ebelp).toString();
 
-                      return Card(
-                        child: ListTile(
-                          title: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              RichText(
-                                text: TextSpan(
-                                  style: DefaultTextStyle.of(context).style,
-                                  children: <TextSpan>[
-                                    const TextSpan(
-                                      text: "Item No: ",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
+                      return  Card(
+                          child: ListTile(
+                            title: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                RichText(
+                                  text: TextSpan(
+                                    style: DefaultTextStyle.of(context).style,
+                                    children: <TextSpan>[
+                                      const TextSpan(
+                                        text: "Item No: ",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
                                       ),
-                                    ),
-                                    TextSpan(
-                                      text: ebelpWithoutZeros,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
+                                      TextSpan(
+                                        text: ebelpWithoutZeros,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 5),
-                              Text("Material No : ${poset.ebeln}",
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 12,
+                                const SizedBox(height: 5),
+                                Text("Material No : ${poset.matnr}",
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 12,
+                                  ),
                                 ),
-                              ),
-                              Text("Material Description : ${poset.txz01}",
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 12,
+                                Text("Material Description : ${poset.txz01}",
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 12,
+                                  ),
                                 ),
-                              ),
-                              Text("Open Quantity : ${poset.menge}",
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 12,
+                                Text("Open Quantity : ${poset.menge}",
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 12,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
+                            onTap: () {
+                             /* ConfirmationPage cp = ConfirmationPage(onConfirmationDataUpdated: (List<String> ) {  });
+                              cp.showAlertDialog(context, posets[index], (data) {
+                                // Handle the data here
+                                String? deliveryNote = data["deliveryNote"];
+                                String? billOfLoading = data["billOfLoading"];
+                                String? giSlipNo = data["giSlipNo"];
+                                String? headerText = data["headerText"];
+                                String? transporterName = data["transporterName"];
+                                String? comments = data["comments"];
+                      
+                                // Update the data in CollapsibleList
+                                cp.updateConfirmationData([
+                                  deliveryNote,
+                                  billOfLoading,
+                                  giSlipNo,
+                                  headerText,
+                                  transporterName,
+                                  comments,
+                                ]);
+                      
+                                // Close the dialog
+                                Navigator.of(context).pop();
+                              });*/
+
+                              tabcontroller.animateTo(2);
+                            },
                           ),
-                          onTap: () {
-                           /* ConfirmationPage cp = ConfirmationPage(onConfirmationDataUpdated: (List<String> ) {  });
-                            cp.showAlertDialog(context, posets[index], (data) {
-                              // Handle the data here
-                              String? deliveryNote = data["deliveryNote"];
-                              String? billOfLoading = data["billOfLoading"];
-                              String? giSlipNo = data["giSlipNo"];
-                              String? headerText = data["headerText"];
-                              String? transporterName = data["transporterName"];
-                              String? comments = data["comments"];
-
-                              // Update the data in CollapsibleList
-                              cp.updateConfirmationData([
-                                deliveryNote,
-                                billOfLoading,
-                                giSlipNo,
-                                headerText,
-                                transporterName,
-                                comments,
-                              ]);
-
-                              // Close the dialog
-                              Navigator.of(context).pop();
-                            });*/
-                          },
-                        ),
-                      );
+                        );
+                      
                     },
                   );
                 }
