@@ -363,7 +363,8 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                               onPressed: () {
                                 _selectexpDate(context);
                               },
-                              child: Icon(Icons.date_range))),
+                              child: Icon(Icons.date_range,
+                              color: Colors.blueAccent,))),
                     ),
                   ),
                 ),
