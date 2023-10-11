@@ -37,6 +37,8 @@ class SecondTabState extends ConsumerState<SecondTab> {
   @override
   Widget build(BuildContext context) {
 
+    final tabController=DefaultTabController.of(context);
+
     final confirmData1=ref.watch(confirmProvider);
     return Scaffold(
       body: Column(
@@ -162,6 +164,7 @@ class SecondTabState extends ConsumerState<SecondTab> {
                               // Close the dialog
                               Navigator.of(context).pop();
                             });*/
+                            tabController.animateTo(2);
                           },
                         ),
                       );

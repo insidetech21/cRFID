@@ -43,7 +43,7 @@ class DetailsPage extends StatelessWidget {
             ],
           ),
         ),
-        body: const TabBarView(
+        body:  TabBarView(
           children: [
             // First Tab
             FirstTab(),
