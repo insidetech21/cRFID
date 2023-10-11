@@ -40,8 +40,8 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
 
   String? selectedLocation;
 
-  TextEditingController manufcController=TextEditingController(text: '');
-  TextEditingController expController=TextEditingController(text: '');
+  TextEditingController manufcController=TextEditingController(text: 'DD/MM/YYYY');
+  TextEditingController expController=TextEditingController(text: 'DD/MM/YYYY');
 
   DateTime? selectedDate;
   Future<void> _selectmanDate(BuildContext context) async {
@@ -336,9 +336,9 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                         labelText: 'Manufacturing Date :',
                         border: OutlineInputBorder(),
                         hintText: 'DD/MM/YYYY',
-                        suffix: IconButton(onPressed: (){
+                        suffix: TextButton(onPressed: (){
                           _selectmanDate(context);
-                        }, icon: Icon(Icons.date_range))
+                        }, child: Icon(Icons.date_range))
                       ),
                     ),
                   ),
@@ -356,9 +356,9 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                         labelText: 'Expiry Date :',
                         hintText: 'DD/MM/YYYY',
                         border: OutlineInputBorder(),
-                        suffix: IconButton(onPressed: (){
+                        suffix: TextButton(onPressed: (){
                           _selectexpDate(context);
-                        }, icon: Icon(Icons.date_range))
+                        }, child: Icon(Icons.date_range))
                         
                       ),
                     ),
@@ -382,9 +382,14 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
 
                 Padding(
                   padding: const EdgeInsets.all(10.0),
+                  
                   child: ElevatedButton(
+                    style:ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0))
+                    ),
                     onPressed: (){}, 
                     child: Text('Post')),
+                    
                 )
                 // Add more list items as needed
               ],
