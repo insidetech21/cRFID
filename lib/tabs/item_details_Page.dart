@@ -28,8 +28,8 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
     text: "Goods receipt for PO into warehouse/store",
   );
 
-
-  String? selectedOptionStockType; // Create a variable to store the selected option
+  String?
+      selectedOptionStockType; // Create a variable to store the selected option
   TextEditingController orderQuantityController = TextEditingController(
     text: "20",
   );
@@ -40,8 +40,10 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
 
   String? selectedLocation;
 
-  TextEditingController manufcController=TextEditingController(text: 'DD/MM/YYYY');
-  TextEditingController expController=TextEditingController(text: 'DD/MM/YYYY');
+  TextEditingController manufcController =
+      TextEditingController(text: 'DD/MM/YYYY');
+  TextEditingController expController =
+      TextEditingController(text: 'DD/MM/YYYY');
 
   DateTime? selectedDate;
   Future<void> _selectmanDate(BuildContext context) async {
@@ -58,7 +60,7 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
       setState(() {
         // selectedDateInFormat;
         selectedDate = picked;
-        manufcController.text=DateFormat('dd/MM/yyyy').format(selectedDate!);
+        manufcController.text = DateFormat('dd/MM/yyyy').format(selectedDate!);
       });
     }
   }
@@ -77,12 +79,10 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
       setState(() {
         // selectedDateInFormat;
         selectedDate = picked;
-        expController.text=DateFormat('dd/MM/yyyy').format(selectedDate!);
+        expController.text = DateFormat('dd/MM/yyyy').format(selectedDate!);
       });
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -194,12 +194,13 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                       // Use the selectedOption variable to control the selected value
                       onChanged: (String? newValue) {
                         setState(() {
-                          selectedOption = newValue; // Update the selected option when changed
+                          selectedOption =
+                              newValue; // Update the selected option when changed
                         });
                       },
                       items:
-                      <String>['101', '102'] // Define the dropdown options
-                          .map<DropdownMenuItem<String>>((String value) {
+                          <String>['101', '102'] // Define the dropdown options
+                              .map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(value),
@@ -235,11 +236,14 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                       // Use the selectedOption variable to control the selected value
                       onChanged: (String? newValue) {
                         setState(() {
-                          selectedOptionStockType = newValue; // Update the selected option when changed
+                          selectedOptionStockType =
+                              newValue; // Update the selected option when changed
                         });
                       },
-                      items:
-                      <String>['Restricted', 'Un-restricted'] // Define the dropdown options
+                      items: <String>[
+                        'Restricted',
+                        'Un-restricted'
+                      ] // Define the dropdown options
                           .map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
@@ -290,11 +294,11 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                       // Use the selectedOption variable to control the selected value
                       onChanged: (String? newValue) {
                         setState(() {
-                          selectedLocation = newValue; // Update the selected option when changed
+                          selectedLocation =
+                              newValue; // Update the selected option when changed
                         });
                       },
-                      items:
-                      <String>['', '',''] // Define the dropdown options
+                      items: <String>['', '', ''] // Define the dropdown options
                           .map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
@@ -331,15 +335,15 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                       controller: manufcController,
                       readOnly: true,
                       keyboardType: TextInputType.number,
-                      
-                      decoration:  InputDecoration(
-                        labelText: 'Manufacturing Date :',
-                        border: OutlineInputBorder(),
-                        hintText: 'DD/MM/YYYY',
-                        suffix: TextButton(onPressed: (){
-                          _selectmanDate(context);
-                        }, child: Icon(Icons.date_range))
-                      ),
+                      decoration: InputDecoration(
+                          labelText: 'Manufacturing Date :',
+                          border: OutlineInputBorder(),
+                          hintText: 'DD/MM/YYYY',
+                          suffix: TextButton(
+                              onPressed: () {
+                                _selectmanDate(context);
+                              },
+                              child: Icon(Icons.date_range))),
                     ),
                   ),
                 ),
@@ -351,16 +355,15 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                       controller: expController,
                       readOnly: true,
                       keyboardType: TextInputType.number,
-                      
-                      decoration:  InputDecoration(
-                        labelText: 'Expiry Date :',
-                        hintText: 'DD/MM/YYYY',
-                        border: OutlineInputBorder(),
-                        suffix: TextButton(onPressed: (){
-                          _selectexpDate(context);
-                        }, child: Icon(Icons.date_range))
-                        
-                      ),
+                      decoration: InputDecoration(
+                          labelText: 'Expiry Date :',
+                          hintText: 'DD/MM/YYYY',
+                          border: OutlineInputBorder(),
+                          suffix: TextButton(
+                              onPressed: () {
+                                _selectexpDate(context);
+                              },
+                              child: Icon(Icons.date_range))),
                     ),
                   ),
                 ),
@@ -371,7 +374,6 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                     child: TextFormField(
                       readOnly: false,
                       keyboardType: TextInputType.number,
-                      
                       decoration: const InputDecoration(
                         labelText: 'Vendor Batch :',
                         border: OutlineInputBorder(),
@@ -382,14 +384,13 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
 
                 Padding(
                   padding: const EdgeInsets.all(10.0),
-                  
                   child: ElevatedButton(
-                    style:ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0))
-                    ),
-                    onPressed: (){}, 
-                    child: Text('Post')),
-                    
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50.0)),
+                      ),
+                      onPressed: () {},
+                      child: Text('Post')),
                 )
                 // Add more list items as needed
               ],
