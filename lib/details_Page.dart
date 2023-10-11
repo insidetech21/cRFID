@@ -1,7 +1,11 @@
+import 'package:crfid/model/Poset.dart';
+import 'package:crfid/services/in_poset_api.dart';
 import 'package:crfid/tabs/firstTab.dart';
 import 'package:crfid/tabs/item_details_Page.dart';
 import 'package:crfid/tabs/secondTab.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
+import 'confirmationPage.dart';
 
 class DetailsPage extends StatelessWidget {
   const DetailsPage({Key? key}) : super(key: key);
@@ -39,19 +43,19 @@ class DetailsPage extends StatelessWidget {
             ],
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: [
             // First Tab
-            const FirstTab(),
-            const SecondTab(
-                // DeliveryNote: '',
-                // BillOfLoading: '',
-                // GR_GI_SLIP_NO: '',
-                // Header_Text: '',
-                // Comments: '',
-                // PO_NUMBER: '',
-                // Transpotar_Name: '',
-                ),
+            FirstTab(),
+            SecondTab(
+              // DeliveryNote: '',
+              // BillOfLoading: '',
+              // GR_GI_SLIP_NO: '',
+              // Header_Text: '',
+              // Comments: '',
+              // PO_NUMBER: '',
+              // Transpotar_Name: '',
+            ),
             ItemDetailsPage(),
           ],
         ),
